@@ -24,7 +24,7 @@ const Welcome = (props) => {
             alertShow: 'Ngọc ngu lợn'
         },
     ])
-    debugger
+    
     return <View style={{ backgroundColor: 'white', flex: 1 }}>
         <ImageBackground
             source={images.background}
@@ -70,7 +70,7 @@ const Welcome = (props) => {
             <View style={{ flex: 0.4, }}>
                 {accountTypes.map(accountType =>
                     <UIButton onPress={() => {
-                        debugger
+                        
                         setAccountTypes(accountTypes.map(eachAccountType => {
                             alert(accountType.alertShow)
                             return {
@@ -79,7 +79,6 @@ const Welcome = (props) => {
                             }
                         }))
                     }}
-
                         title={accountType.name}
                         isSelected={accountType.isSelected} >
                     </UIButton>

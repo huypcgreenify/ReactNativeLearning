@@ -1,3 +1,4 @@
 export default {
-    background: require('../assets/background.jpg')
+    background: require('../assets/background.jpg'),
+    computer: require('../assets/teamwork.png'),
 }
