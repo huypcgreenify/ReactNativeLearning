@@ -6,10 +6,15 @@ import React from "react"
 import { AppRegistry } from 'react-native'
 import { name as appName } from './app.json'
 import ReviseScreen from './screens/ReviseScreen'
-import { Welcome, Login, Register } from './screens'
+import {
+    Welcome,
+    Login,
+    Register,
+    FoodList
+} from './screens'
 
 
-AppRegistry.registerComponent(appName, () => () => <Register />);
+AppRegistry.registerComponent(appName, () => () => <FoodList />);
 
 /*
 let fakedProducts = [
