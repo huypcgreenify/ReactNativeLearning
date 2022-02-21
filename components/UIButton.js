@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors } from '../constants'
+
 const UIButton = (props) => {
     const { onPress, title, isSelected } = props
     return <TouchableOpacity onPress={onPress}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Keyboard } from 'react-native'
+import { View, Text, Image, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Keyboard, ScrollView } from 'react-native'
 import { images, colors, icons, fontSizes } from '../constants'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { isValidEmail, isValidPassword } from '../utilies/Validations'
@@ -23,12 +23,17 @@ const Register = (props) => {
         Keyboard.addListener('keyboardDidHide', () => { setKeyboardIsShown(false) })
     })
 
-    return <KeyboardAwareScrollView style={{ flex: 1, backgroundColor: colors.primary }}>
-        <View style={{ flex: 0.3, height: 150, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
+    //navigation
+    const { navigation, route } = props
+    //function of navigation to/back
+    const { navigate, goBack } = navigation
+    return <View style={{ flex: 1, backgroundColor: colors.primary }}>
+
+        <View style={{ flex: 0.5, height: 150, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
             <Text style={{ color: 'white', fontSize: fontSizes.h1, fontWeight: 'bold', width: '30%' }}>Already have an Account?</Text>
             <Image style={{ width: 160, height: 100, alignItems: 'center' }} source={images.computer}></Image>
         </View>
-        <View style={{ flex: 0.5, backgroundColor: 'white', padding: 10, marginHorizontal: 10, borderRadius: 10 }}>
+        <KeyboardAwareScrollView style={{ flex: 0.1, backgroundColor: 'white', padding: 10, marginHorizontal: 10, borderRadius: 10 }}>
             <View style={{ marginHorizontal: 15 }}>
                 <Text style={{ color: colors.primary, fontSize: fontSizes.h5 }}>Email:</Text>
                 <TextInput onChangeText={(text) => {
@@ -62,16 +67,28 @@ const Register = (props) => {
                 <View style={{ height: 1, backgroundColor: colors.primary, width: '100%', marginTop: -5 }}></View>
                 <Text style={{ color: 'red', fontSize: fontSizes.h6, marginBottom: 10 }}>{errorPassword}</Text>
             </View>
+            <View style={{ marginHorizontal: 15 }}>
+                <Text style={{ color: colors.primary, fontSize: fontSizes.h5 }}>Retype Password</Text>
+                <TextInput onChangeText={(text) => {
+                    setErrorPassword(isValidPassword(text) == true ? '' : 'Password must be at least 3 characters')
+                    setPassword(text)
+                }}
+                    placeholder="Re-Enter your password" placeholderTextColor={colors.placeholder} secureTextEntry={true} style={{ color: 'black', fontSize: fontSizes.h5, marginTop: -5 }}></TextInput>
+                <View style={{ height: 1, backgroundColor: colors.primary, width: '100%', marginTop: -5 }}></View>
+                <Text style={{ color: 'red', fontSize: fontSizes.h6, marginBottom: 10 }}>{errorPassword}</Text>
+            </View>
             <TouchableOpacity
                 disabled={!isValidtionOk() == false}
-                onPress={() => alert(`Email=${email}, password=${password}`)}
+                onPress={() =>
+                    // alert(`Email=${email}, password=${password}`)
+                    goBack()
+                }
                 style={{ backgroundColor: isValidtionOk() == true ? colors.primary : colors.inactive, justifyContent: 'center', alignItems: 'center', width: '50%', alignSelf: 'center', borderRadius: 18 }}>
                 <Text style={{ padding: 8, fontSize: fontSizes.h5, color: 'white' }}>Register</Text>
             </TouchableOpacity>
-
-        </View>
+        </KeyboardAwareScrollView>
         {
-            keyboardIsShown == false && <View style={{ flex: 0.20, marginTop: 15 }}>
+            keyboardIsShown == false && <View style={{ flex: 0.4, marginTop: 15 }}>
                 <View style={{ height: 40, flexDirection: 'row', alignItems: 'center', marginHorizontal: 15 }}>
                     <View style={{ backgroundColor: 'white', height: 1, flex: 1 }}></View>
                     <Text style={{ color: 'white', alignItems: 'center', padding: 8, marginHorizontal: 10 }}>User other methods?</Text>
@@ -92,7 +109,7 @@ const Register = (props) => {
             </View>
         }
 
-    </KeyboardAwareScrollView >
+    </View >
 }
 
 export default Register

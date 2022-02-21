@@ -10,11 +10,16 @@ import {
     Welcome,
     Login,
     Register,
-    FoodList
+    FoodList,
+    ProductGridView,
+    Settings,
+    Profile
 } from './screens'
+import App from './navigation/App'
+import { UITabView } from './navigation/UITabView'
 
 
-AppRegistry.registerComponent(appName, () => () => <FoodList />);
+AppRegistry.registerComponent(appName, () => () => <App />);
 
 /*
 let fakedProducts = [

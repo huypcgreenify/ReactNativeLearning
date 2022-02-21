@@ -5,14 +5,34 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { isValidEmail, isValidPassword } from '../../utilies/Validations'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
+const getColorFromStatus = (status) => {
+    // if (status.toLowerCase().trim() === 'opening now') {
+    //     return colors.success
+    // } else if (status.toLowerCase().trim() === 'closing soon') {
+    //     return colors.alert
+    // } else if (status.toLowerCase().trim() === 'comming soon') {
+    //     return colors.warning
+    // }
+    // return colors.success
+
+    return status.toLowerCase().trim() == 'opening soon' ? colors.success :
+        (status.toLowerCase().trim() == 'closing soon' ? colors.alert :
+            (status.toLowerCase().trim() == 'comming soon' ? colors.warning : colors.success)) // refactor code
+}
+
 const FoodItems = (props) => {
+    let { name, price, socialNetwork, status, url, website } = props.food// destructuring an object
+    // debugger
+    const { onPress } = props
     return (
-        <View style={{
-            height: 150,
-            paddingTop: 20,
-            paddingStart: 10,
-            flexDirection: 'row',
-        }}>
+        <TouchableOpacity
+            onPress={onPress}
+            style={{
+                height: 150,
+                paddingTop: 20,
+                paddingStart: 10,
+                flexDirection: 'row',
+            }}>
             <Image style={{
                 width: 100,
                 height: 100,
@@ -21,7 +41,7 @@ const FoodItems = (props) => {
                 marginRight: 10,
             }}
                 source={{
-                    uri: 'https://upload.wikimedia.org/wikipedia/commons/3/33/Spaghettata.JPG'
+                    uri: url
                 }} />
             <View style={{
                 flex: 1,
@@ -32,7 +52,7 @@ const FoodItems = (props) => {
                     fontSize: fontSizes.h6,
                     fontWeight: 'bold',
                 }}>
-                    La Casa Prn
+                    {name}
                 </Text>
                 <View style={{
                     height: 1,
@@ -42,21 +62,17 @@ const FoodItems = (props) => {
                     <Text style={{
                         color: colors.inactive,
                         fontSize: fontSizes.h6,
-                    }}>
-                        Status:
-                    </Text>
+                    }}>Status: </Text>
                     <Text style={{
-                        color: 'orange',
+                        color: getColorFromStatus(status),
                         fontSize: fontSizes.h6,
-                    }}>
-                        Opening soon
-                    </Text>
+                    }}>{status.toUpperCase()}</Text>
                 </View>
                 <Text style={{
                     color: colors.inactive,
                     fontSize: fontSizes.h6,
                 }}>
-                    Price: 1234
+                    Price: {price}
                 </Text>
                 <Text style={{
                     color: colors.inactive,
@@ -68,15 +84,27 @@ const FoodItems = (props) => {
                     color: colors.inactive,
                     fontSize: fontSizes.h6,
                 }}>
-                    Website: http://www.
+                    Website: {website}
                 </Text>
                 <View style={{ flexDirection: 'row', }}>
-                    <Icon style={{ backgroundColor: colors.facebook, width: 20, height: 20, padding: 3, borderRadius: 10, marginRight: 5 }} name='facebook' size={15} color={'white'} />
-                    <Icon style={{ backgroundColor: 'red', width: 20, height: 20, borderRadius: 10, paddingHorizontal: 3, paddingVertical: 1.5, marginRight: 5 }} name='instagram' size={16.5} color={'white'} />
-                    <Icon style={{ backgroundColor: colors.facebook, width: 20, height: 20, padding: 3, borderRadius: 10, marginRight: 5 }} name='twitter' size={15} color={'white'} />
+                    {socialNetwork['facebook'] != undefined &&
+                        <Icon style={{ backgroundColor: colors.facebook, width: 20, height: 20, padding: 3, borderRadius: 10, marginRight: 5 }}
+                            name='facebook'
+                            size={15}
+                            color={'white'} />}
+                    {socialNetwork['twitter'] != undefined &&
+                        <Icon style={{ backgroundColor: 'red', width: 20, height: 20, borderRadius: 10, paddingHorizontal: 3, paddingVertical: 1.5, marginRight: 5 }}
+                            name='instagram'
+                            size={16.5}
+                            color={'white'} />}
+                    {socialNetwork['instagram'] != undefined &&
+                        <Icon style={{ backgroundColor: colors.facebook, width: 20, height: 20, padding: 3, borderRadius: 10, marginRight: 5 }}
+                            name='twitter'
+                            size={15}
+                            color={'white'} />}
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

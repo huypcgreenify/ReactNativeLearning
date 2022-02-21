@@ -11,20 +11,24 @@ const Welcome = (props) => {
         {
             name: 'Influence',
             isSelected: true,
-            alertShow: 'Ngọc ngu chó'
+            alertShow: 'Alo1'
         },
         {
             name: 'Business',
             isSelected: false,
-            alertShow: 'Ngọc ngu bò'
+            alertShow: 'Alo2'
         },
         {
             name: 'Individual',
             isSelected: false,
-            alertShow: 'Ngọc ngu lợn'
+            alertShow: 'Alo3'
         },
     ])
-    
+    //navigation
+    const { navigation, route } = props
+    //function of navigation to/back
+    const { navigate, goBack } = navigation
+
     return <View style={{ backgroundColor: 'white', flex: 1 }}>
         <ImageBackground
             source={images.background}
@@ -70,7 +74,6 @@ const Welcome = (props) => {
             <View style={{ flex: 0.4, }}>
                 {accountTypes.map(accountType =>
                     <UIButton onPress={() => {
-                        
                         setAccountTypes(accountTypes.map(eachAccountType => {
                             alert(accountType.alertShow)
                             return {
@@ -79,16 +82,20 @@ const Welcome = (props) => {
                             }
                         }))
                     }}
+                        key={accountType.name}
                         title={accountType.name}
                         isSelected={accountType.isSelected} >
                     </UIButton>
                 )}
             </View>
             <View style={{ flex: 0.2, }}>
-                <UIButton title={'Login'.toUpperCase()} />
+                <UIButton title={'Login'.toUpperCase()}
+                    onPress={() => {
+                        navigate('Login')
+                    }} />
                 <Text style={{ fontSize: fontSizes.h6, color: 'white', alignSelf: 'center' }}>Want to register new Account?</Text>
                 <TouchableOpacity
-                    onPress={() => alert('Ngọc ngu chó bò lợn')}
+                    onPress={() => alert('Alo123')}
                     style={{ padding: 5 }}>
                     <Text style={{
                         fontSize: fontSizes.h6, color: colors.primary,

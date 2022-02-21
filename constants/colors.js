@@ -4,4 +4,7 @@ export default {
     facebook: '#1B75D6',
     google: '#DD5036',
     inactive: 'rgba(0,0,0,0.5)',
+    success: 'blue',
+    alert: 'red',
+    warning: 'orange',
 }   
